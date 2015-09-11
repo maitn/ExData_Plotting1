@@ -5,11 +5,12 @@ library(data.table)
 
 #Read the raw data file and subset only for the dates required.
 rawData <- read.table("household_power_consumption.txt", sep=";", header=TRUE, na.strings="?")
-subData <- rawData[rawData$Date == "2/1/2007" | rawData$Date == "2/2/2007", ]
+subData <- rawData[rawData$Date == "1/2/2007" | rawData$Date == "2/2/2007", ]
 
 
 #Create column containing date and time combined and converted to correct format
-subData$DateTime <- as.POSIXlt(paste(subData$Date,subData$Time), format="%m/%d/%Y %H:%M:%S")
+subData$DateTime <- as.POSIXlt(paste(subData$Date,subData$Time), format="%d/%m/%Y %H:%M:%S")
+
 
 #Plot four graphs
 par(mfrow = c(2,2))
@@ -29,9 +30,8 @@ plot(subData$DateTime
     ,xlab="datetime")
 
 #Plot 3 - trend lines for energy sub metering 1/2/3 over time
-xrange  <- range(subData$DateTime) 
-yrange1 <- range(subData$Sub_metering_1, subData$Sub_metering_2, subData$Sub_metering_3) 
-yrange  <- range(yrange1, max(yrange1)+10) #Add extra space for legend
+xrange <- range(subData$DateTime) 
+yrange <- range(subData$Sub_metering_1, subData$Sub_metering_2, subData$Sub_metering_3) 
 
 plot(xrange 
     ,yrange 

@@ -5,11 +5,11 @@ library(data.table)
 
 #Read the raw data file and subset only for the dates required.
 rawData <- read.table("household_power_consumption.txt", sep=";", header=TRUE, na.strings="?")
-subData <- rawData[rawData$Date == "2/1/2007" | rawData$Date == "2/2/2007", ]
+subData <- rawData[rawData$Date == "1/2/2007" | rawData$Date == "2/2/2007", ]
 
 
 #Create column containing date and time combined and converted to correct format
-subData$DateTime <- as.POSIXlt(paste(subData$Date,subData$Time), format="%m/%d/%Y %H:%M:%S")
+subData$DateTime <- as.POSIXlt(paste(subData$Date,subData$Time), format="%d/%m/%Y %H:%M:%S")
 
 
 #Plot 2 - line graph of global active power over time
